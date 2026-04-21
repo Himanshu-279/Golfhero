@@ -81,12 +81,12 @@ webhooks (id, event_type, payload, processed)
 ## 🔑 Test Credentials
 
 ### **User Account**
-- **Email:** demo@gmail.com
-- **Password:** Demo@123456
+- **Email:** b@gmail.com
+- **Password:** 12345678
 
 ### **Admin Account**
-- **Email:** admin@golfhero.com
-- **Password:** Admin@123456
+- **Email:** a@gmail.com
+- **Password:** 12345678
 
 ### **Test Payment Card (Razorpay)**
 - **Card:** 4111 1111 1111 1111
