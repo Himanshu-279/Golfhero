@@ -132,95 +132,334 @@ CVV: Any 3 digits (e.g., 123)
 
 ---
 
-## 📸 Screenshots & Features
+## 📸 Screenshots & Feature Walkthrough
 
-### **1. Home Page**
-- Landing page with value proposition
-- Call-to-action buttons (Sign up / Login)
-- Clean, modern design
+### **Section 1: Authentication Flow**
 
-### **2. Authentication**
-- **Sign Up**: Full name, email, password, charity selection
-- **Login**: Email & password with JWT token storage
-- **Secure**: bcryptjs hashing + JWT tokens
+#### **Registration Page**
+- **What's happening**: New user signing up with email, password, name
+- **Features visible**:
+  - Full Name input field
+  - Email input field
+  - Password input field (min 8 chars)
+  - Charity selection dropdown
+  - "Create account" button
+- **Next step**: User redirected to dashboard after signup
 
-### **3. Subscription Page**
-- **Monthly Plan**: ₹499/month
+---
+
+#### **Login Page**
+- **What's happening**: User authentication with JWT tokens
+- **Features visible**:
+  - Email field (demo@gmail.com)
+  - Password field
+  - "Sign in" button
+  - "Create one" link for new users
+- **Backend process**: 
+  - Password verified with bcryptjs
+  - JWT token generated (24h expiry)
+  - Token stored in localStorage
+  - Redirect to dashboard
+
+---
+
+### **Section 2: Dashboard (User Home)**
+
+#### **Subscription Status Card**
+- **What's happening**: Shows active subscription with renewal date
+- **Displays**:
+  - Status badge: "Active" (green) or "Inactive" (gray)
+  - Plan type: "Monthly" or "Yearly"
+  - Renewal date: e.g., "Renews 21 May 2026"
+  - Cancel button: Red text link
+- **Data from**: `subscriptions` table + `users` table
+- **Update frequency**: Real-time
+
+#### **Charity Selection**
+- **What's happening**: Shows selected NGO and contribution percentage
+- **Displays**:
+  - Charity name (e.g., "Smile Foundation India")
+  - Contribution: "30% of your subscription"
+  - "View charity →" link
+  - Option to change charity
+- **Database**: `users.charity_id` + `charities` table
+
+#### **Score Entry**
+- **What's happening**: Golf score tracking and management
+- **Features**:
+  - "+ Add Score" button
+  - Last 5 scores displayed
+  - Auto-delete when 6th score added (keeps rolling 5)
+  - Score date & value shown
+- **Validation**: Scores between 1-45
+
+#### **Draw Numbers**
+- **What's happening**: Current month's draw results
+- **Shows**:
+  - Draw month-year (e.g., "2026-04")
+  - 5 generated numbers (colored badges)
+  - "View all draws →" link
+- **Auto-updates**: Monthly at 00:00 UTC
+
+#### **Winnings Section**
+- **What's happening**: Prize history across all draws
+- **Shows**:
+  - Draw month
+  - Prize amount (₹)
+  - Match count (3/4/5)
+  - Payment status
+
+---
+
+### **Section 3: Subscription Payment**
+
+#### **Plan Selection**
+- **What's happening**: User choosing subscription plan
+- **Monthly Plan**:
+  - Price: ₹499/month
   - 5 score entries/month
-  - Monthly prize draw entry
-  - 10%+ charity contribution
-  
-- **Yearly Plan**: ₹4,799/year (Save 20%)
+  - Monthly prize entry
+  - 10%+ to charity
+  - "Subscribe Monthly" button
+
+- **Yearly Plan** (Recommended):
+  - Price: ₹4,799/year (20% discount)
   - Everything in Monthly
   - 2 months free
   - Priority draw entry
+  - "Subscribe Yearly" button
+  - "Best Value" badge (gold)
 
-- **Razorpay Integration**: Secure payment checkout with customer details
+#### **Razorpay Checkout Modal**
+- **What's happening**: Secure payment processing via Razorpay
+- **Prefilled fields**:
+  - Customer name (from account)
+  - Email (from account)
+  - Amount: ₹499 or ₹4,799
+- **User enters**:
+  - Card number: 4111 1111 1111 1111
+  - Expiry: Any future date
+  - CVV: Any 3 digits
+  - OTP/verification (if required)
+- **Backend process**:
+  1. Create Razorpay order
+  2. Generate order ID
+  3. Return to frontend
+  4. Razorpay checkout opens
+  5. User pays
+  6. Signature verification
+  7. Subscription activated
+  8. Redirect to dashboard
 
-### **4. Dashboard**
-Shows after subscription:
-- **Subscription Status**: Active/Inactive with renewal date
-- **Score Tracking**: Add/edit daily golf scores
-- **My Charity**: Selected NGO with contribution percentage
-- **Latest Draw**: Current month's draw numbers
-- **Winnings**: Prize history across all draws
-- **Cancel Subscription**: One-click cancellation
+---
 
-### **5. Charities Page**
-- **Featured Charities**: Smile Foundation, Robin Hood Army, Teach for India, etc.
-- **Charity Details**: Name, description, website link, upcoming events
-- **Selection**: Choose during signup or update in dashboard
+### **Section 4: Admin Panel**
 
-### **6. Draws Page**
-- **View All Draws**: Monthly draw results
-- **Draw Numbers**: 5 numbers generated (1-45)
-- **Prize Pools**: Jackpot, Match-4, Match-3
-- **Your Scores**: Highlighted to show matches
+#### **Admin Login**
+- **Credentials**:
+  - Email: admin@golfhero.com
+  - Password: Admin@123456
+- **Role check**: `users.role = 'admin'`
+- **Access**: Full admin dashboard
 
-### **7. Admin Dashboard** (Email: admin@golfhero.com)
-**7 Sections:**
+#### **Dashboard Statistics**
+- **What's shown**:
+  - Total active users
+  - Monthly recurring revenue (MRR)
+  - Subscription count
+  - Subscriber retention rate
+- **Data source**: Real-time queries from database
+- **Auto-refreshes**: Every 5 minutes
 
-1. **Dashboard Stats**
-   - Total users
-   - Active subscriptions
-   - Monthly revenue
-   - Subscriber count
+#### **Users Management**
+- **What's shown**:
+  - User email & name
+  - Subscription status (active/inactive/lapsed)
+  - Charity selection & percentage
+  - Join date
+- **Admin actions**:
+  - View user details
+  - Edit charity assignment
+  - Change charity percentage
+  - Delete user (with confirmation)
 
-2. **Users Management**
-   - List all users
-   - View subscription status
-   - Edit charity selection
-   - View charity percentage
+#### **Draws Management**
+- **Create Draw**:
+  - Select draw type: Random or Algorithmic
+  - Generate 5 numbers (1-45)
+  - Simulate before saving
 
-3. **Draws Management**
-   - Create new draw (random or algorithmic)
-   - Simulate draw (preview before saving)
-   - Save as draft
-   - Publish draw (generates winners)
-   - View draw history
+- **Simulate Draw**:
+  - Preview numbers
+  - See potential winners
+  - Check prize distribution
+  - NO database changes
+  - "Run & Save (Draft)" to confirm
 
-4. **Charities Management**
-   - Add new charity
-   - Edit charity details
-   - Delete charities
-   - Upload logos
+- **Publish Draw**:
+  - Mark as published
+  - Generates winners automatically
+  - Calculates prize amounts
+  - Sends notifications
+  - Locks for editing
 
-5. **Winners Management**
-   - List all winners by draw
-   - View prize amounts
-   - Verify winner claims
-   - Approve/Reject payments
+#### **Winners List**
+- **What's shown**:
+  - Draw month
+  - User email
+  - Match count (3/4/5 matched numbers)
+  - Prize amount
+  - Verification status: pending/approved/rejected
+  - Payment status: pending/paid
 
-6. **Analytics**
-   - Revenue charts
-   - User growth
-   - Charity contributions
-   - Draw participation rate
+- **Admin actions**:
+  - Request proof upload
+  - Approve winner
+  - Reject with reason
+  - Mark as paid
 
-7. **Settings**
-   - Platform configuration
-   - API key management
-   - Email notifications
+#### **Charities Management**
+- **List view**:
+  - Charity name
+  - Logo
+  - Featured status (yes/no)
+  - Upcoming events count
+
+- **Actions**:
+  - Add new charity
+  - Edit details
+  - Upload/change logo
+  - Delete charity (if no users)
+
+#### **Analytics**
+- **Charts shown**:
+  - Revenue trend (30 days)
+  - User growth (30 days)
+  - Charity contributions (pie chart)
+  - Draw participation rate
+
+---
+
+### **Section 5: Charity Pages**
+
+#### **Featured Charities**
+- **What's shown**:
+  - 5 NGOs with logos
+  - Charity name & description
+  - Website link
+  - "Featured" badge (if highlighted)
+  - Upcoming events (if any)
+
+#### **Charity Detail Page**
+- **Click on any charity**:
+  - Full description
+  - Website link
+  - Logo
+  - Upcoming events/projects
+  - "Select as my charity" button
+  - Contribution percentage slider
+
+---
+
+### **Section 6: Draw Results**
+
+#### **All Draws Page**
+- **What's shown**:
+  - Draw month-year (e.g., "2026-04")
+  - 5 generated numbers (in colored badges)
+  - Prize pools:
+    - Jackpot (5 matches)
+    - Match-4 (4 matches)
+    - Match-3 (3 matches)
+  - "View winners" link
+  - Draw status (published/draft)
+
+#### **Draw Winners**
+- **For each draw**:
+  - List of all winners
+  - Match count
+  - Prize amount
+  - Verification status
+  - User name & email
+
+---
+
+## 🔄 Data Flow Explanation
+
+### **User Signup to Subscription**
+```
+1. User fills signup form
+   ↓
+2. Data sent to POST /api/auth/signup
+   ↓
+3. Backend:
+   - Hash password with bcryptjs
+   - Create user in database
+   - Store: email, password_hash, name, charity_id
+   ↓
+4. JWT token generated
+   ↓
+5. Token stored in localStorage
+   ↓
+6. Redirect to /dashboard
+```
+
+### **Payment Processing**
+```
+1. User clicks "Subscribe"
+   ↓
+2. POST /api/subscriptions/checkout
+   ↓
+3. Backend creates Razorpay order
+   ↓
+4. Order ID returned to frontend
+   ↓
+5. Razorpay checkout modal opens
+   ↓
+6. User pays (4111 1111 1111 1111)
+   ↓
+7. Frontend receives payment response
+   ↓
+8. POST /api/subscriptions/razorpay-callback
+   ↓
+9. Backend verifies signature (HMAC-SHA256)
+   ↓
+10. If valid:
+    - Create subscription record
+    - Update user.subscription_status = 'active'
+    - Set period_end (30 days later)
+    ↓
+11. Redirect to /dashboard
+    ↓
+12. Dashboard shows "Active" subscription
+```
+
+### **Monthly Draw Generation**
+```
+1. Admin clicks "Simulate Draw"
+   ↓
+2. Backend generates 5 random numbers (1-45)
+   ↓
+3. Shows preview with potential winners
+   ↓
+4. Admin clicks "Run & Save (Draft)"
+   ↓
+5. Draw saved but not published
+   ↓
+6. Admin reviews winners
+   ↓
+7. Admin clicks "Publish"
+   ↓
+8. Backend:
+   - Matches user scores against numbers
+   - Creates draw_winners entries
+   - Calculates prize amounts
+   - Sets status = 'published'
+   ↓
+9. Users notified of results
+   ↓
+10. Winners see prizes in dashboard
+```
 
 ---
 
@@ -379,16 +618,55 @@ https://golfhero-production.up.railway.app/
 VITE_API_URL=https://golfhero-production.up.railway.app
 ```
 
-### **Backend (.env)**
+### **Backend (.env) - Complete Setup**
 ```
+# Server Configuration
 PORT=3001
 CLIENT_URL=https://golfhero-eight.vercel.app
+
+# Database (Supabase)
 SUPABASE_URL=https://gpxsqfidkvnpsvyngbtz.supabase.co
-SUPABASE_SERVICE_KEY=eyJhbGci...
+SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+# Authentication (JWT)
+JWT_SECRET=himanshu-super-secret-key-32-chars-min-asdfjkl
+
+# Payment Gateway - Razorpay (PRIMARY for India)
 RAZORPAY_KEY_ID=rzp_test_SgEGnnmby30MEt
 RAZORPAY_KEY_SECRET=z2MjAf0HYV0FGUlieRvb4xVF
-JWT_SECRET=himanshu-super-secret-key-32-chars-min-asdfjkl
 DEMO_MODE=true
+
+# Fallback Payment Gateway - Stripe (International)
+STRIPE_SECRET_KEY=sk_test_4eC39HqLyjWDarhtT657L8xV
+STRIPE_WEBHOOK_SECRET=whsec_test_secret_1234567890abcdefghij
+STRIPE_MONTHLY_PRICE_ID=price_xxx
+STRIPE_YEARLY_PRICE_ID=price_xxx
+```
+
+---
+
+## 🔑 How to Get API Keys
+
+### **Razorpay Setup (Recommended for India)**
+1. Go to https://razorpay.com
+2. Sign up with business details
+3. Complete KYC (identity verification)
+4. Go to Settings → API Keys
+5. Copy Test Key ID & Secret
+6. Update `.env` with your keys
+7. Test with card: `4111 1111 1111 1111`
+
+### **Supabase Setup (Database)**
+1. Go to https://supabase.com
+2. Create new project
+3. Copy Project URL & Service Key
+4. Run schema.sql in SQL Editor
+5. Update `.env` with credentials
+
+### **JWT Secret**
+```
+# Generate using:
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
 ---
