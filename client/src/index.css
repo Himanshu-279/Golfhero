@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green: #1a6b3c;
+  --green-light: #2d9654;
+  --green-dark: #0d3d22;
+  --gold: #c9a84c;
+  --cream: #f5f0e8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #f9f7f2;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+@layer utilities {
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .opacity-0-init { opacity: 0; }
+}
+
+.btn-primary {
+  @apply bg-brand-green text-white px-6 py-3 rounded-full font-medium transition-all duration-200 hover:bg-brand-light hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0;
+}
+
+.btn-outline {
+  @apply border-2 border-brand-green text-brand-green px-6 py-3 rounded-full font-medium transition-all duration-200 hover:bg-brand-green hover:text-white;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6;
+}
+
+.input-field {
+  @apply w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green/30 focus:border-brand-green transition-all;
+}
+
+.badge-active {
+  @apply bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full;
+}
+
+.badge-inactive {
+  @apply bg-red-100 text-red-600 text-xs font-medium px-3 py-1 rounded-full;
+}
+
+.badge-pending {
+  @apply bg-yellow-100 text-yellow-700 text-xs font-medium px-3 py-1 rounded-full;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
