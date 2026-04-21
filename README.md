@@ -637,8 +637,8 @@ RAZORPAY_KEY_SECRET=z2MjAf0HYV0FGUlieRvb4xVF
 DEMO_MODE=true
 
 # Fallback Payment Gateway - Stripe (International)
-STRIPE_SECRET_KEY=sk_test_4eC39HqLyjWDarhtT657L8xV
-STRIPE_WEBHOOK_SECRET=whsec_test_secret_1234567890abcdefghij
+STRIPE_SECRET_KEY=sk_test_4eC39HqLyjWDarhtT657L8xV_EXAMPLE
+STRIPE_WEBHOOK_SECRET=whsec_test_secret_1234567890abcdefghij_EXAMPLE
 STRIPE_MONTHLY_PRICE_ID=price_xxx
 STRIPE_YEARLY_PRICE_ID=price_xxx
 ```
