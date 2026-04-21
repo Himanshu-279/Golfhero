@@ -136,6 +136,13 @@ CVV: Any 3 digits (e.g., 123)
 
 ### **Section 1: Authentication Flow**
 
+#### **User Home Page**
+![User Home](Screenshots/user%20home.png)
+- **What's happening**: Landing page with value proposition
+- **Features visible**: Sign up / Login buttons, clean design
+
+---
+
 #### **Registration Page**
 - **What's happening**: New user signing up with email, password, name
 - **Features visible**:
@@ -164,6 +171,8 @@ CVV: Any 3 digits (e.g., 123)
 ---
 
 ### **Section 2: Dashboard (User Home)**
+
+![User Dashboard](Screenshots/user%20dashboard.png)
 
 #### **Subscription Status Card**
 - **What's happening**: Shows active subscription with renewal date
@@ -213,6 +222,8 @@ CVV: Any 3 digits (e.g., 123)
 
 ### **Section 3: Subscription Payment**
 
+![Subscription Plans](Screenshots/plans.png)
+
 #### **Plan Selection**
 - **What's happening**: User choosing subscription plan
 - **Monthly Plan**:
@@ -231,6 +242,7 @@ CVV: Any 3 digits (e.g., 123)
   - "Best Value" badge (gold)
 
 #### **Razorpay Checkout Modal**
+![Razorpay Payment](Screenshots/razora%20pay%20.png)
 - **What's happening**: Secure payment processing via Razorpay
 - **Prefilled fields**:
   - Customer name (from account)
@@ -255,6 +267,8 @@ CVV: Any 3 digits (e.g., 123)
 
 ### **Section 4: Admin Panel**
 
+![Admin Dashboard](Screenshots/admin%20dashboard.png)
+
 #### **Admin Login**
 - **Credentials**:
   - Email: admin@golfhero.com
@@ -272,6 +286,7 @@ CVV: Any 3 digits (e.g., 123)
 - **Auto-refreshes**: Every 5 minutes
 
 #### **Users Management**
+![Manage Users](Screenshots/manage%20user.png)
 - **What's shown**:
   - User email & name
   - Subscription status (active/inactive/lapsed)
@@ -284,6 +299,7 @@ CVV: Any 3 digits (e.g., 123)
   - Delete user (with confirmation)
 
 #### **Draws Management**
+![Monthly Draws](Screenshots/monthly%20draws.png)
 - **Create Draw**:
   - Select draw type: Random or Algorithmic
   - Generate 5 numbers (1-45)
@@ -296,6 +312,7 @@ CVV: Any 3 digits (e.g., 123)
   - NO database changes
   - "Run & Save (Draft)" to confirm
 
+![Publish Draw](Screenshots/publish%20draw.png)
 - **Publish Draw**:
   - Mark as published
   - Generates winners automatically
@@ -319,6 +336,7 @@ CVV: Any 3 digits (e.g., 123)
   - Mark as paid
 
 #### **Charities Management**
+![Add Charities](Screenshots/charities%20addition.png)
 - **List view**:
   - Charity name
   - Logo
@@ -332,6 +350,7 @@ CVV: Any 3 digits (e.g., 123)
   - Delete charity (if no users)
 
 #### **Analytics**
+![Analytics Dashboard](Screenshots/analytics%20.png)
 - **Charts shown**:
   - Revenue trend (30 days)
   - User growth (30 days)
@@ -341,6 +360,8 @@ CVV: Any 3 digits (e.g., 123)
 ---
 
 ### **Section 5: Charity Pages**
+
+![Charity](Screenshots/charity.png)
 
 #### **Featured Charities**
 - **What's shown**:
@@ -620,25 +641,24 @@ VITE_API_URL=https://golfhero-production.up.railway.app
 
 ### **Backend (.env) - Complete Setup**
 ```
-# Server Configuration
 PORT=3001
-CLIENT_URL=https://golfhero-eight.vercel.app
+CLIENT_URL=http://localhost:5173
 
-# Database (Supabase)
-SUPABASE_URL=https://gpxsqfidkvnpsvyngbtz.supabase.co
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+# Supabase (Database)
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_KEY=your-service-role-key
 
-# Authentication (JWT)
-JWT_SECRET=himanshu-super-secret-key-32-chars-min-asdfjkl
+# JWT (Authentication)
+JWT_SECRET=your-very-long-random-secret-key-here
 
-# Payment Gateway - Razorpay (PRIMARY for India)
-RAZORPAY_KEY_ID=rzp_test_SgEGnnmby30MEt
-RAZORPAY_KEY_SECRET=z2MjAf0HYV0FGUlieRvb4xVF
-DEMO_MODE=true
+# Razorpay (Payment Gateway - Primary for India)
+RAZORPAY_KEY_ID=rzp_test_your_test_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_test_secret_key
+DEMO_MODE=false
 
-# Fallback Payment Gateway - Stripe (International)
-STRIPE_SECRET_KEY=sk_test_4eC39HqLyjWDarhtT657L8xV_EXAMPLE
-STRIPE_WEBHOOK_SECRET=whsec_test_secret_1234567890abcdefghij_EXAMPLE
+# Stripe (Fallback for International Payments)
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
 STRIPE_MONTHLY_PRICE_ID=price_xxx
 STRIPE_YEARLY_PRICE_ID=price_xxx
 ```
